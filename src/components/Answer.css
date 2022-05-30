@@ -1,0 +1,16 @@
+.answer-option{
+  width: 80%;
+  border-radius: 12px;
+  border: 2px solid #6066D0B2;
+  padding: 0.5em 1em;
+  color: #6066D0B2;
+  background-color: #fff;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+}
+
+.answer-option:hover, .answer-option:focus{
+  background-color: #F9A826;
+  color: #fff;
+}
