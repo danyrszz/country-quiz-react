@@ -2,7 +2,7 @@ import Answer from './Answer';
 import { useState, useEffect} from 'react';
 import randomQuestion from '../models/randomQuestion';
 
-const Card = ({data}) =>{
+const Question = ({data}) =>{
   const[question, setQuestion] = useState ('');
   const[answers, setAnswers] = useState ([]);
 
