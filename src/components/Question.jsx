@@ -19,6 +19,7 @@ const Question = ({data, getAnswer}) =>{
         tempAnswers.splice(correctAnswerPosition, 0, [q.completeQuestion.answer, true])
         setQuestion(q.completeQuestion.question);
         setAnswers(tempAnswers);
+        console.log(q);
       }
       generateQuestion();
   }, [data]);

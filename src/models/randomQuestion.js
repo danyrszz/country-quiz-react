@@ -1,13 +1,17 @@
 export default class randomQuestion {
 
   constructor(data){
+    //utilities
     this.data = data;
-    this.country = this.data[this.generateRandomNumber(250)];
-    this.countryName = this.country.name.common;
+    this.country = this.data[this.generateRandomNumber(250)]; //all the data
     this.language = Object.entries(this.country.languages);
+    this.countryName = this.country.name.common;
+    
     this.completeQuestion = this.getQuestion(data);
     this.wrongAnswers = this.getRandomAnswers(this.completeQuestion.answer,this.completeQuestion.topic);
+    this.allQuestionData = this.getQuestionData();
   }
+  //getting a random question from the country
   getQuestion(country){
     this.flag = this.country.flags.svg;
     //this array of objects contains both the question and the answers
@@ -84,6 +88,27 @@ export default class randomQuestion {
       default :
         return;
     }
+  }
+
+  getQuestionData () {
+    let flag;
+    if(this.completeQuestion.topic === "flag"){
+      flag = this.flag;
+    }else{
+      flag = null;
+    }
+    const correctAnswerPosition = this.generateRandomNumber(4);
+    let tempAnswers = [];
+    this.wrongAnswers.forEach(answer => { tempAnswers.push([answer,false]) });
+    tempAnswers.splice(correctAnswerPosition, 0, [this.completeQuestion.answer, true])
+
+    return(
+        {
+        question: this.completeQuestion.question,
+        answers: tempAnswers,
+        flag: flag
+      }
+    )
   }
 
   generateRandomNumber(max){
