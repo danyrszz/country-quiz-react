@@ -1,29 +1,46 @@
-import Answer from './Answer';
 import { useState, useEffect} from 'react';
-import randomQuestion from '../models/randomQuestion';
+import Question from './Question';
 
-const Card = ({data}) =>{
-  const[question, setQuestion] = useState ('');
-  const[answers, setAnswers] = useState ([]);
+const Card = () =>{
+
+  const [data, setData] = useState ( [] );
+  const [gameState, setGameState] = useState ({
+    correctAnswers : 0,
+    ended : false
+  })
 
   useEffect(
     ()=>{
-      async function generateQuestion(){
-        const countries = await data;
-        const q = new randomQuestion(countries);
-        const correctAnswerPosition = q.generateRandomNumber(4);
-
-        let tempAnswers = [];
-        q.wrongAnswers.forEach(answer => { tempAnswers.push([answer,false]) });
-        tempAnswers.splice(correctAnswerPosition, 0, [q.completeQuestion.answer, true])
-        setQuestion(q.completeQuestion.question);
-        setAnswers(tempAnswers);
+      async function getQuestion (){
+        try{
+          const res = await fetch("https://restcountries.com/v3.1/all");
+          const data = await res.json();
+          if(data) setData(data);
+        }catch (err) {
+          console.log(err);
+          return null;
+        }
       }
-      generateQuestion();
-    }, [data]);
+      getQuestion();
+    }, 
+  []);
+
+  function getAnswer(answer){
+    //la respuesta solo puede clicarse una vez, al hacerlo actualizar el estado
+    //al obtenerla esperar 1 segundo e ir a la siguiente pantalla/pregunta
+    console.log(answer)
+    if(answer[1]){
+      setGameState({...gameState, correctAnswers: gameState.correctAnswers+1});
+    }else{
+      setGameState({...gameState, ended: true});
+    }
+  }
 
   return(
-    <div>Card</div>
+    <Question 
+      data={data}
+      getAnswer = { getAnswer }
+    />
   )
 }
 

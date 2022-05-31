@@ -2,9 +2,10 @@ import Answer from './Answer';
 import { useState, useEffect} from 'react';
 import randomQuestion from '../models/randomQuestion';
 
-const Question = ({data}) =>{
+const Question = ({data, getAnswer}) =>{
   const[question, setQuestion] = useState ('');
   const[answers, setAnswers] = useState ([]);
+  const letter =['A','B','C','D'];
 
   useEffect(
     ()=>{
@@ -20,11 +21,21 @@ const Question = ({data}) =>{
         setAnswers(tempAnswers);
       }
       generateQuestion();
-    }, [data]);
+  }, [data]);
 
   return(
-    <div>Card</div>
+    <>
+      <p> {question} </p>
+      {answers.map( (answer, index)=>{
+        return <Answer 
+          option = {letter[index]}
+          answer = {answer}
+          key = {index}
+          handleClick = { ()=> getAnswer(answer) }
+        />
+      })}
+    </>
   )
 }
 
-export default Card;
+export default Question ;
