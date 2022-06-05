@@ -1,40 +1,68 @@
+import { useState } from 'react';
 import Answer from './Answer';
-import { useState, useEffect} from 'react';
-import randomQuestion from '../models/randomQuestion';
 
-const Question = ({data, getAnswer}) =>{
-  const[question, setQuestion] = useState ('');
-  const[answers, setAnswers] = useState ([]);
+const Question = ({question}) =>{
   const letter =['A','B','C','D'];
+  const answers = question.answers;
+  const [style, setStyle] = useState(null);
+  const [selectedAnswer, setSelectedAnswer] = useState(false);
 
-  useEffect(
-    ()=>{
-      async function generateQuestion(){
-        const countries = await data;
-        const q = new randomQuestion(countries);
-        const correctAnswerPosition = q.generateRandomNumber(4);
+  const handleClick = (selectedAnswer)=>{
+    selectedAnswer[1]? setStyle ('correct') : setStyle ('wrong');
+    setSelectedAnswer(selectedAnswer[0]);
+  }
 
-        let tempAnswers = [];
-        q.wrongAnswers.forEach(answer => { tempAnswers.push([answer,false]) });
-        tempAnswers.splice(correctAnswerPosition, 0, [q.completeQuestion.answer, true])
-        setQuestion(q.completeQuestion.question);
-        setAnswers(tempAnswers);
-        console.log(q);
+  const renderAnswer = (answer, index)=>{
+    //if there's no selected answer, style will be null
+    if(!selectedAnswer){
+      console.log('here')
+      return (<Answer
+        key = {letter[index]}
+        option = {letter[index]}
+        answer={answer}
+        handleClick = {handleClick}
+        answerStyle = {null}
+        isCorrect = {null}
+      />)
+    }else{
+      //since there's a selected answer
+      //we need to disable the buttons to be clicked again
+      //if it's correct
+      if(style === 'correct'){
+        return (<Answer
+          key = {letter[index]}
+          option = {letter[index]}
+          answer={answer}
+          handleClick = {handleClick}
+          answerStyle = {selectedAnswer===answer[0] ? 'correct' : null}
+          isCorrect = {true}
+        />)
       }
-      generateQuestion();
-  }, [data]);
+      //if it's wrong (we'll need to paint the correct answer in green aswell)
+      else if(style==='wrong'){
+        return (<Answer
+          key = {letter[index]}
+          option = {letter[index]}
+          answer={answer}
+          handleClick = {handleClick}
+          answerStyle = {selectedAnswer===answer[0] ? 'wrong' : null}
+          isCorrect = {false}
+        />)
+      }
 
+    }
+  }
+  
   return(
     <>
-      <p> {question} </p>
-      {answers.map( (answer, index)=>{
-        return <Answer 
-          option = {letter[index]}
-          answer = {answer}
-          key = {index}
-          handleClick = { ()=> getAnswer(answer) }
-        />
-      })}
+      <p>{question.question}</p>
+      {question.flag ? 
+      <img src={`${question.flag}`} alt="flag" /> : null}
+      {answers ? 
+      answers.map((answer, index)=>{
+        return renderAnswer(answer, index);
+      }):null
+      }
     </>
   )
 }

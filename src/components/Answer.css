@@ -9,8 +9,16 @@
   display: flex;
   justify-content: space-between;
 }
-
-.answer-option:hover, .answer-option:focus{
+.answer-option:hover{
   background-color: #F9A826;
+  color: #fff;
+  cursor: pointer;
+}
+.correct, .correct:hover{
+  background-color: #60BF88;
+  color: #fff ;
+}
+.wrong, .wrong:hover{
+  background-color: #EA8282;
   color: #fff;
 }
