@@ -1,10 +1,15 @@
 import { useState, useEffect} from 'react';
 import Question from './Question';
+import Status from './Status';
 import randomQuestion from '../models/randomQuestion';
+import './Card.css';
+
 
 const Card = () =>{
 
   const [question ,setQuestion] = useState ( [] );
+  //const [gameStatus, setGameStatus] = useState (0);
+  const [correctAnswers ,setCorrectAnswers] = useState ( 0 );
 
   useEffect(
     ()=>{
@@ -15,21 +20,32 @@ const Card = () =>{
           const q = new randomQuestion(fetchedData);
           setQuestion(q.allQuestionData);
         }catch (err) {
-          console.log(err);
-          return null;
+          console.log('error processing the data');
+          //load another question
+          getData()
         }
       }
       getData();
     }, 
   []);
 
+  //extract the function to create a new question outside the api call
+  //execute it when correct answers change inside update game status
+
+  const updateGameStatus = (isCorrect)=>{
+    isCorrect ? console.log('ok') : console.log('wrong')
+    ///wait 3 seconds, update the state so a new question will be rendered.
+    if(isCorrect) setCorrectAnswers(correctAnswers+1);
+  }
+
   return(
-    <>
-   <h1>you are in card</h1>
-   <Question 
-     question = {question}
-   />
-    </>
+    <div className='card'>
+      {/* <Status /> */}
+      <Question 
+        question = {question}
+        updateGameStatus = {updateGameStatus}
+      />
+    </div>
   )
 }
 

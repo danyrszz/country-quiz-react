@@ -8,6 +8,7 @@
   font-weight: bold;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 1em;
 }
 .answer-option:hover{
   background-color: #F9A826;
@@ -21,4 +22,8 @@
 .wrong, .wrong:hover{
   background-color: #EA8282;
   color: #fff;
+}
+
+.icon-size{
+  font-size: 1.2em;
 }
