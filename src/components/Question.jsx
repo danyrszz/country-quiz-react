@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Answer from './Answer';
 import './Question.css';
 
@@ -14,9 +14,11 @@ const Question = ({question, updateGameStatus}) =>{
     selected[1]? setIsCorrect (true) : setIsCorrect (false);
   }
 
-  useEffect( ()=>{
+  const nextQuestion = ()=>{
     updateGameStatus(isCorrect);
-  }, [isCorrect]);
+    setIsCorrect(null);
+    setSelectedAnswer(false);
+  }
 
   //render a next button when question is correct, 
   //on its click execute updategamestatus and set is correct to null again
@@ -37,7 +39,11 @@ const Question = ({question, updateGameStatus}) =>{
         selectedAnswer = {selectedAnswer}
       />
       }):null
+
       }
+      {isCorrect!=null ? 
+      <button className='next-button' onClick={nextQuestion}>Next</button> 
+      : null}
     </>
   )
 }

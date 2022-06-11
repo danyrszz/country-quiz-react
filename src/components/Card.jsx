@@ -10,6 +10,7 @@ const Card = () =>{
   const [question ,setQuestion] = useState ( [] );
   //const [gameStatus, setGameStatus] = useState (0);
   const [correctAnswers ,setCorrectAnswers] = useState ( 0 );
+  const [gameEnded ,setGameEnded] = useState ( false );
 
   useEffect(
     ()=>{
@@ -29,13 +30,14 @@ const Card = () =>{
     }, 
   []);
 
-  //extract the function to create a new question outside the api call
   //execute it when correct answers change inside update game status
 
   const updateGameStatus = (isCorrect)=>{
     isCorrect ? console.log('ok') : console.log('wrong')
     ///wait 3 seconds, update the state so a new question will be rendered.
-    if(isCorrect) setCorrectAnswers(correctAnswers+1);
+    if(isCorrect){
+      setCorrectAnswers(correctAnswers+1);
+    } 
   }
 
   return(
