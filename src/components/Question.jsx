@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Answer from './Answer';
 import './Question.css';
+import questionDeco from '../img/question-deco.svg';
 
 
 const Question = ({question, updateGameStatus}) =>{
@@ -25,6 +26,7 @@ const Question = ({question, updateGameStatus}) =>{
 
   return(
     <>
+      <img src={questionDeco} alt="" className="question-deco" />
       <h3>{question.question}</h3>
       {question.flag ? 
       <img src={`${question.flag}`} alt="flag" className='flag'/> : null}

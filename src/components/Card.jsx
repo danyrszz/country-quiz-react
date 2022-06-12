@@ -1,15 +1,15 @@
 import { useState, useEffect} from 'react';
 import Question from './Question';
+import TryAgain from './TryAgain';
 import Status from './Status';
 import randomQuestion from '../models/randomQuestion';
 import './Card.css';
 
-
 const Card = () =>{
 
   const [question ,setQuestion] = useState ( [] );
-  //const [gameStatus, setGameStatus] = useState (0);
   const [correctAnswers ,setCorrectAnswers] = useState ( 0 );
+  const [lives ,setLives] = useState ( 3 );
   const [gameEnded ,setGameEnded] = useState ( false );
 
   useEffect(
@@ -28,25 +28,37 @@ const Card = () =>{
       }
       getData();
     }, 
-  []);
-
-  //execute it when correct answers change inside update game status
+  [correctAnswers, lives]);
 
   const updateGameStatus = (isCorrect)=>{
-    isCorrect ? console.log('ok') : console.log('wrong')
-    ///wait 3 seconds, update the state so a new question will be rendered.
     if(isCorrect){
       setCorrectAnswers(correctAnswers+1);
-    } 
+    }else{
+      lives>0 ? setLives(lives-1) : setGameEnded (true)
+    }
+  }
+
+  const resetGame = ()=>{
+    setCorrectAnswers(0);
+    setLives(3);
+    setGameEnded(false);
   }
 
   return(
     <div className='card'>
-      {/* <Status /> */}
+      <Status correctAnswers = {correctAnswers} lives={lives}/>
+      {!gameEnded ?
       <Question 
         question = {question}
         updateGameStatus = {updateGameStatus}
+      /> :
+      <TryAgain 
+        correctAnswers = {correctAnswers}
+        resetGame = {resetGame}
       />
+      }
+      <h2 className='card-title'>COUNTRY QUIZ</h2>
+
     </div>
   )
 }

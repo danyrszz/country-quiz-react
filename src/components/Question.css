@@ -1,4 +1,21 @@
 .flag{
-  width: 300px;
+  max-width: 200px;
   margin-bottom: 15px;
+}
+.next-button{
+  border: none;
+  background-color: #F9A826;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+.next-button:hover{
+  background-color: #d18100;
+}
+.question-deco{
+  position:absolute;
+  top:-4em;
+  left:0;
 }
