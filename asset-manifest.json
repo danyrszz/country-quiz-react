@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/country-quiz-react/static/css/main.e20ea334.css",
+    "main.js": "/country-quiz-react/static/js/main.42902e1e.js",
+    "static/media/winners.svg": "/country-quiz-react/static/media/winners.d76bfdf87016eda38fd439d929ce0371.svg",
+    "static/media/background.png": "/country-quiz-react/static/media/background.41dbc5504a105eae7176.png",
+    "static/media/question-deco.svg": "/country-quiz-react/static/media/question-deco.182b6171bba7c99e5444500b4daec361.svg",
+    "index.html": "/country-quiz-react/index.html",
+    "main.e20ea334.css.map": "/country-quiz-react/static/css/main.e20ea334.css.map",
+    "main.42902e1e.js.map": "/country-quiz-react/static/js/main.42902e1e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e20ea334.css",
+    "static/js/main.42902e1e.js"
+  ]
+}
