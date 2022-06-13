@@ -8,15 +8,15 @@
 
 <div align="center">
   <h3>
-    <a href="">
+    <a href="https://danyrszz.github.io/country-quiz-react/">
       Demo
     </a>
     <span> | </span>
-    <a href="">
+    <a href="https://github.com/danyrszz/country-quiz-react">
       Solution
     </a>
     <span> | </span>
-    <a href="">
+    <a href="https://devchallenges.io/challenges/Bu3G2irnaXmfwQ8sZkw8">
       Challenge
     </a>
   </h3>
